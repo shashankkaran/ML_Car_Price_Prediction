@@ -23,13 +23,13 @@ import {
   GridItem,
   FormLabel,
   Input,
-  Select,
+  // Select,
   SimpleGrid,
-  InputLeftAddon,
-  InputGroup,
-  Textarea,
+  // InputLeftAddon,
+  // InputGroup,
+  // Textarea,
   FormHelperText,
-  InputRightElement,
+  // InputRightElement,
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
@@ -55,8 +55,8 @@ const Form1 = () => {
           Front View
         </FormLabel>
         {/* <Input id="first-name" placeholder="First name" /> */}
-        {/* <label for="formFileLg" class="form-label">Large file input example</label> */}
-        <input class="form-control form-control-lg" id="formFileLg" type="file" />
+        {/* <label for="formFileLg" className="form-label">Large file input example</label> */}
+        <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
 
       <FormControl>
@@ -64,8 +64,8 @@ const Form1 = () => {
           Rear View
         </FormLabel>
         {/* <Input id="last-name" placeholder="First name" /> */}
-        {/* <label for="formFileLg" class="form-label">Large file input example</label>s */}
-        <input class="form-control form-control-lg" id="formFileLg" type="file" />
+        {/* <label for="formFileLg" className="form-label">Large file input example</label>s */}
+        <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
       {/* </Flex> */}
 
@@ -75,8 +75,8 @@ const Form1 = () => {
           Left View
         </FormLabel>
         {/* <Input id="first-name" placeholder="First name" /> */}
-        {/* <label for="formFileLg" class="form-label">Large file input example</label> */}
-        <input class="form-control form-control-lg" id="formFileLg" type="file" />
+        {/* <label for="formFileLg" className="form-label">Large file input example</label> */}
+        <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
       <FormControl >
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
@@ -84,8 +84,8 @@ const Form1 = () => {
         </FormLabel>
         {/* <Input id="first-name" placeholder="First name" /> */}
 
-        {/* <label for="formFileLg" class="form-label">Large file input example</label> */}
-        <input class="form-control form-control-lg" id="formFileLg" type="file" />
+        {/* <label for="formFileLg" className="form-label">Large file input example</label> */}
+        <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
       {/* </Flex> */}
 
