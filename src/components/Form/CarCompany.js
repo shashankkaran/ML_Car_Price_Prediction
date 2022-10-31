@@ -18,7 +18,16 @@ import {
     // FormHelperText,
     // InputRightElement,
   } from '@chakra-ui/react';
-function CarCompany() {
+function CarCompany(props) {
+
+  const selectDropdown = (e) => {
+    const val = e.target.value;
+   
+    
+    props.passBranddata(val);
+    
+
+  };
   return (
     <div>
          <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -35,6 +44,7 @@ function CarCompany() {
                 <Select
                     id="location"
                     name="location"
+                    onChange={selectDropdown}
                     // autoComplete="country"
                     placeholder="Select option"
                     focusBorderColor="brand.400"
@@ -42,35 +52,35 @@ function CarCompany() {
                     size="sm"
                     w="full"
                     rounded="md">
-                    <option>Maruti</option>
-                    <option>Hyundai</option>
-                    <option>Honda</option>
-                    <option>Audi</option>
-                    <option>Nissan</option>
-                    <option>Toyota</option>
-                    <option>Volkswagen</option>
-                    <option>Tata</option>
-                    <option>Land</option>
-                    <option>Mitsubishi</option>
-                    <option>Renault</option>
-                    <option>Mercedes-Benz</option>
-                    <option>BMW</option>
-                    <option>Mahindra</option>
-                    <option>Ford</option>
-                    <option>Porsche</option>
-                    <option>Datsun</option>
-                    <option>Jaguar</option>
-                    <option>Volvo</option>
-                    <option>Chevrolet</option>
-                    <option>Skoda</option>
-                    <option>Mini</option>
-                    <option>Fiat</option>
-                    <option>Jeep</option>
-                    <option>Ambassador</option>
-                    <option>Isuzu</option>
-                    <option>ISUZU</option>
-                    <option>Force</option>
-                    <option>Bentley</option>
+                    <option value="Maruti">Maruti</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Audi">Audi</option>
+                    <option value="Nissan">Nissan</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Volkswagen">Volkswagen</option>
+                    <option value="Tata">Tata</option>
+                    <option value="Land">Land</option>
+                    <option value="Mitsubishi">Mitsubishi</option>
+                    <option value="Renault">Renault</option>
+                    <option value="Mercedes-Benz">Mercedes-Benz</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Mahindra">Mahindra</option>
+                    <option value="Ford">Ford</option>
+                    <option value="Porsche">Porsche</option>
+                    <option value="Datsun">Datsun</option>
+                    <option value="Jaguar">Jaguar</option>
+                    <option value="Volvo">Volvo</option>
+                    <option value="Chevrolet">Chevrolet</option>
+                    <option value="Skoda">Skoda</option>
+                    <option value="Mini">Mini</option>
+                    <option value="Fiat">Fiat</option>
+                    <option value="Jeep">Jeep</option>
+                    <option value="Ambassador">Ambassador</option>
+                    <option value="Isuzu">Isuzu</option>
+                    <option value="ISUZU">ISUZU</option>
+                    <option value="Force">Force</option>
+                    <option value="Bentley">Bentley</option>
                     
                     
                     

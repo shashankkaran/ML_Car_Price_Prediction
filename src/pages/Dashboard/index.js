@@ -23,13 +23,8 @@ import {
   GridItem,
   FormLabel,
   Input,
-  // Select,
   SimpleGrid,
-  // InputLeftAddon,
-  // InputGroup,
-  // Textarea,
   FormHelperText,
-  // InputRightElement,
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
@@ -49,13 +44,10 @@ const Form1 = () => {
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         Check if you car is applicable for sale
       </Heading>
-      {/* <Flex> */}
       <FormControl mr="5%">
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Front View
         </FormLabel>
-        {/* <Input id="first-name" placeholder="First name" /> */}
-        {/* <label for="formFileLg" className="form-label">Large file input example</label> */}
         <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
 
@@ -63,48 +55,50 @@ const Form1 = () => {
         <FormLabel htmlFor="last-name" fontWeight={'bold'}>
           Rear View
         </FormLabel>
-        {/* <Input id="last-name" placeholder="First name" /> */}
-        {/* <label for="formFileLg" className="form-label">Large file input example</label>s */}
         <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
-      {/* </Flex> */}
-
-      {/* <Flex> */}
-      <FormControl mr="5%">
+       <FormControl mr="5%">
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Left View
         </FormLabel>
-        {/* <Input id="first-name" placeholder="First name" /> */}
-        {/* <label for="formFileLg" className="form-label">Large file input example</label> */}
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+         <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
       <FormControl >
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Right View
         </FormLabel>
-        {/* <Input id="first-name" placeholder="First name" /> */}
-
-        {/* <label for="formFileLg" className="form-label">Large file input example</label> */}
         <input className="form-control form-control-lg" id="formFileLg" type="file" />
       </FormControl>
-      {/* </Flex> */}
-
+    
     </>
   );
 };
 
 const Form2 = () => {
+  const [locate, setLocate] = useState("");
+  const [brand, setBrand] = useState("");
+  const [fuel, setFuel] = useState("");
+  const [trans, setTrans] = useState("");
+  const [owner, setOwner] = useState("");
+  const [date, setDate] = useState();
+  const [kmdriven, setKmdriven] = useState("");
+  const [mileage, setMileage] = useState("");
+  const [seats, setSeats] = useState("4");
+  const [engineCC, setEngineCC] = useState("");
+  const [powerBHP, setPowerBHP] = useState("")
   return (
     <>
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
         Car Details
       </Heading>
 
-      <LocationInput />
-      <CarCompany />
-      <FuelType />
-      <Transmission />
-      <OwnerType />
+      <LocationInput passLocatedata={setLocate} />
+      <CarCompany passBranddata={setBrand} />
+      <FuelType passFueldata={setFuel} />
+      <Transmission passTransdata={setTrans} />
+      <OwnerType passOwnerdata={setOwner} />
+   
+
       <FormControl as={GridItem} colSpan={6}>
         <FormLabel
           htmlFor="year"
@@ -118,18 +112,17 @@ const Form2 = () => {
           Year of Purchase
         </FormLabel>
         <Input
+          onChange={(e) => { setDate(e.target.value) }}
           type="month"
-          // min="1990"
-          // max="2022"
           name="year"
           id="year"
-          // autoComplete=""
           focusBorderColor="brand.400"
           shadow="sm"
           size="sm"
           w="full"
           rounded="md"
         />
+
       </FormControl>
 
       <FormControl as={GridItem} colSpan={6}>
@@ -146,10 +139,10 @@ const Form2 = () => {
         </FormLabel>
         <Input
           type="number"
+          onChange={(e) => { setKmdriven(e.target.value) }}
 
           name="kilometers"
           id="kilometers"
-          // autoComplete=""
           focusBorderColor="brand.400"
           shadow="sm"
           size="sm"
@@ -174,10 +167,9 @@ const Form2 = () => {
         </FormLabel>
         <Input
           type="number"
-
+          onChange={(e) => { setMileage(e.target.value) }}
           name="mileage"
           id="mileage"
-          // autoComplete=""
           focusBorderColor="brand.400"
           shadow="sm"
           size="sm"
@@ -199,7 +191,7 @@ const Form2 = () => {
           Seats
         </FormLabel>
         <NumberInput defaultValue={4} min={2} max={8}>
-          <NumberInputField />
+          <NumberInputField  onChange={(e) => { setSeats(e.target.value) }}/>
           <NumberInputStepper>
             <NumberIncrementStepper />
             <NumberDecrementStepper />
@@ -220,10 +212,9 @@ const Form2 = () => {
         </FormLabel>
         <Input
           type="number"
-
+          onChange={(e) => { setEngineCC(e.target.value) }}
           name="enginecc"
           id="enginecc"
-          // autoComplete=""
           focusBorderColor="brand.400"
           shadow="sm"
           size="sm"
@@ -245,10 +236,9 @@ const Form2 = () => {
         </FormLabel>
         <Input
           type="number"
-
+          onChange={(e)=>{setPowerBHP(e.target.value)}}
           name="power"
           id="power"
-          // autoComplete=""
           focusBorderColor="brand.400"
           shadow="sm"
           size="sm"
@@ -289,7 +279,6 @@ const Dashboard = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
-
 
   return (
 

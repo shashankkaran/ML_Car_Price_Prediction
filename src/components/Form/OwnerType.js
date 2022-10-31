@@ -18,7 +18,18 @@ import {
     // FormHelperText,
     // InputRightElement,
   } from '@chakra-ui/react';
-function OwnerType() {
+function OwnerType(props) {
+
+  const selectDropdown = (e) => {
+    const val = e.target.value;
+   
+    
+    props.passOwnerdata(val);
+    
+
+  };
+
+
   return (
     <div>
  <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -34,6 +45,8 @@ function OwnerType() {
                 </FormLabel>
                 <Select
                     id="location"
+
+                    onChange={selectDropdown}
                     name="location"
                     // autoComplete="country"
                     placeholder="Select option"
@@ -42,10 +55,10 @@ function OwnerType() {
                     size="sm"
                     w="full"
                     rounded="md">
-                    <option>First</option>
-                    <option>Second</option>
-                    <option>Third</option>
-                    <option>Fourth & Above</option>
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                    <option value="Fourth & Above">Fourth & Above</option>
                 
 
                 </Select>
