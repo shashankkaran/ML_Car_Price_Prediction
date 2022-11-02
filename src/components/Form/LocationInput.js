@@ -17,9 +17,19 @@ import {
     // Textarea,
     // FormHelperText,
     // InputRightElement,
-  } from '@chakra-ui/react';
+} from '@chakra-ui/react';
 export default function Country
-    () {
+    (props) {
+
+    const selectDropdown = (e) => {
+        const val = e.target.value;
+
+
+        props.passLocatedata(val);
+
+
+    };
+
     return (
         <div>
             <FormControl as={GridItem} colSpan={[6, 3]}>
@@ -36,6 +46,7 @@ export default function Country
                 <Select
                     id="location"
                     name="location"
+                    onChange={selectDropdown}
                     // autoComplete="country"
                     placeholder="Select option"
                     focusBorderColor="brand.400"
@@ -43,18 +54,18 @@ export default function Country
                     size="sm"
                     w="full"
                     rounded="md">
-                    <option>Mumbai</option>
-                    <option>Pune</option>
-                    <option>Chennai</option>
-                    <option>Coimbatore</option>
-                    <option>Hyderabad</option>
-                    <option>Jaipur</option>
-                    <option>Kochi</option>
-                    <option>Kolkata</option>
-                    <option>Kolkata</option>
-                    <option>Delhi</option>
-                    <option>Bangalore</option>
-                    <option>Ahmedabad</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Coimbatore">Coimbatore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Kochi">Kochi</option>
+                    <option value="Kolkata">Kolkata</option>
+                    {/* <option value="">Kolkata</option> */}
+                    <option value="Delhi">Delhi</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
 
                 </Select>
             </FormControl>
