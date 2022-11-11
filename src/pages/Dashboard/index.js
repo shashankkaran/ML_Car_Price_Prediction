@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { db } from "../../utils/firebase";
 import { Button } from "@chakra-ui/react";
 import Nav from "../../components/navbar/Nav";
 import LocationInput from "../../components/Form/LocationInput.js";
@@ -67,6 +68,7 @@ const Form1 = () => {
     </>
   );
 };
+var formD;
 
 const Form2 = (props) => {
   const toast = useToast();
@@ -94,7 +96,7 @@ const Form2 = (props) => {
     let d = date.toString().slice(0, 4);
 
     // console.log(d);
-    let obj = {
+    var obj = {
       Company: brand,
       Location: locate,
       Year: d,
@@ -109,6 +111,7 @@ const Form2 = (props) => {
       Power_bhp: powerBHP,
     }
     // console.log(obj)
+    formD = obj;
     props.passFormdata(obj)
   }
   return (
@@ -293,22 +296,22 @@ const Form3 = (props) => {
     setData(props.data);
     console.log(sdata);
     try {
-      Axios.post('https://car-preds-price.herokuapp.com/',  sdata )
-      .then(res => {
-        console.log("yahoo==>",res.data.Predcition);
-        // console.log(res.data);
-        setPredicton(res.data.Predcition);
-        setTimeout(() => {
-         setPredicton(res.data.Predcition)
-        }, 1000);
-        console.log("predicton is : ",predicton )
-      })
+      Axios.post('https://car-preds-price.herokuapp.com/', sdata)
+        .then(res => {
+          console.log("yahoo==>", res.data.Predcition);
+          // console.log(res.data);
+          setPredicton(res.data.Predcition);
+          setTimeout(() => {
+            setPredicton(res.data.Predcition)
+          }, 1000);
+          console.log("predicton is : ", predicton)
+        })
     }
     catch (error) {
       console.log(error);
     }
 
-   
+
     // console.log(sdata)
   })
 
@@ -316,7 +319,7 @@ const Form3 = (props) => {
     <>
 
       <Heading w="100%" textAlign={'center'} fontWeight="normal">
-        Price Predicted : {predicton == "0" ? <h2>Loading ...</h2> : <h2>{predicton}</h2>}
+        Price Predicted : {predicton == "0" ? <h2>Loading ...</h2> : <h2>Rs {predicton} Lakhs</h2>}
       </Heading>
 
       {/* console.log(props.data) */}
@@ -407,6 +410,20 @@ const Dashboard = () => {
                 colorScheme="red"
                 variant="solid"
                 onClick={() => {
+
+                  console.log("heeyy ", formD)
+                  
+                  db.collection("users").add(formD)
+                    .then((docRef) => {
+                      console.log("Document written with ID: ", docRef.id);
+                    })
+                    .catch((error) => {
+                      console.error("Error adding document: ", error);
+                    });
+
+
+
+
                   toast({
                     title: 'Posted Successfully',
                     description: "Your Car has been listed successfully",
