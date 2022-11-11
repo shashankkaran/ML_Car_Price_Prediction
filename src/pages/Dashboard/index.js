@@ -29,10 +29,39 @@ import {
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
+import axios from 'axios';
 
 
 const Form1 = () => {
   const [show, setShow] = React.useState(false);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const checkImg = async () => {
+
+    // Axios.post("http://localhost:5000/predict", selectedFile)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+    const formDat = new FormData();
+    formDat.append("selectedFile", selectedFile);
+
+    try {
+      const response = await Axios({
+        method: "post",
+        url: "http://localhost:5000/predict",
+        data: formDat,
+
+      });
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
   const handleClick = () => setShow(!show);
   return (
     <>
@@ -43,7 +72,16 @@ const Form1 = () => {
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Front View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" id="formFileLg" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" />
+        <Button
+          onClick={checkImg}
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
 
       <FormControl>
@@ -51,18 +89,43 @@ const Form1 = () => {
           Rear View
         </FormLabel>
         <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <Button
+
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
       <FormControl mr="5%">
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Left View
         </FormLabel>
         <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <Button
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
       <FormControl >
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Right View
         </FormLabel>
         <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <Button
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
 
     </>
@@ -298,7 +361,7 @@ const Form3 = (props) => {
     try {
       Axios.post('https://car-preds-price.herokuapp.com/', sdata)
         .then(res => {
-          console.log("yahoo==>", res.data.Predcition);
+          console.log("=>", res.data.Predcition);
           // console.log(res.data);
           setPredicton(res.data.Predcition);
           setTimeout(() => {
@@ -348,6 +411,7 @@ const Dashboard = () => {
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
   const [formData, setFormData] = useState({});
+  var reff;
   return (
 
     <div>
@@ -412,25 +476,34 @@ const Dashboard = () => {
                 onClick={() => {
 
                   console.log("heeyy ", formD)
-                  
+
                   db.collection("users").add(formD)
                     .then((docRef) => {
                       console.log("Document written with ID: ", docRef.id);
+                      reff = docRef.id;
+                      toast({
+                        title: 'Posted Successfully',
+                        description: `Your Car has been listed successfully with ref no ${reff}`,
+                        status: 'success',
+                        duration: 3000,
+                        isClosable: true,
+                      });
                     })
                     .catch((error) => {
                       console.error("Error adding document: ", error);
+                      toast({
+                        title: 'Failed',
+                        description: `${error}`,
+                        status: 'failed',
+                        duration: 3000,
+                        isClosable: true,
+                      });
                     });
 
 
 
 
-                  toast({
-                    title: 'Posted Successfully',
-                    description: "Your Car has been listed successfully",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                  });
+
                 }}>
                 POST AD
               </Button>
