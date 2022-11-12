@@ -20,6 +20,7 @@ import {
     Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import logo from './lo.png';
 import AvatarWithRipple from './AvatarWithRipple';
 
 // const NavLink = ({ children }: { children: ReactNode }) => (
@@ -46,7 +47,8 @@ export default function Nav() {
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                    <Box>Logo</Box>
+                    <Box><img width="150px" src={logo}/></Box>
+
 
                     <Flex alignItems={'center'}>
                         <Stack direction={'row'} spacing={7}>
@@ -78,7 +80,7 @@ export default function Nav() {
                                     </Center>
                                     <br />
                                     <MenuDivider />
-                                    <MenuItem>Your Servers</MenuItem>
+                                    <MenuItem>Edit Profile</MenuItem>
                                     <MenuItem>Account Settings</MenuItem>
                                     <MenuItem>
                                         <Button

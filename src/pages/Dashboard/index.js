@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { db } from "../../utils/firebase";
 import { Button } from "@chakra-ui/react";
 import Nav from "../../components/navbar/Nav";
 import LocationInput from "../../components/Form/LocationInput.js";
@@ -28,10 +29,75 @@ import {
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
+// import axios from 'axios';
 
 
 const Form1 = () => {
   const [show, setShow] = React.useState(false);
+  const toast = useToast();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const checkImg = async () => {
+
+
+    const formDat = new FormData();
+    formDat.append("selectedFile", selectedFile);
+
+
+    try {
+      await Axios.post('http://localhost:5000/predict', formDat)
+        .then(res => {
+          console.log("=>", res);
+          toast({
+            title: 'Succeed',
+            description: `${res.data}`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+        })
+    }
+    catch (error) {
+      console.log("this is error", error);
+      toast({
+        title: 'Failed',
+        description: `${error.message}`,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+
+
+
+    // try {
+    //   const response = await Axios({
+    //     method: "post",
+    //     url: "http://localhost:5000/predict",
+    //     data: formDat,
+
+    //   });
+    // toast({
+    //   title: 'Succeed',
+    //   description: `${response}`,
+    //   status: 'success',
+    //   duration: 3000,
+    //   isClosable: true,
+    // });
+    //   console.log(response)
+    // } catch (error) {
+    // toast({
+    //   title: 'Failed',
+    //   description: `${error}`,
+    //   status: 'failed',
+    //   duration: 3000,
+    //   isClosable: true,
+    // });
+    //   console.log(error)
+    // }
+
+  }
+
   const handleClick = () => setShow(!show);
   return (
     <>
@@ -42,31 +108,68 @@ const Form1 = () => {
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Front View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" id="formFileLg" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" />
+        <Button
+          onClick={checkImg}
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
 
       <FormControl>
         <FormLabel htmlFor="last-name" fontWeight={'bold'}>
           Rear View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" onChange={(e) => setSelectedFile(e.target.files[0])} id="formFileLg" type="file" />
+        <Button
+          onClick={checkImg}
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
       <FormControl mr="5%">
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Left View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" id="formFileLg" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" />
+        <Button
+          onClick={checkImg}
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
       <FormControl >
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Right View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" id="formFileLg" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" />
+        <Button
+          onClick={checkImg}
+          isDisabled={false}
+          colorScheme="teal"
+          variant="solid"
+          w="7rem"
+          mr="5%">
+          Check
+        </Button>
       </FormControl>
 
     </>
   );
 };
+var formD;
 
 const Form2 = (props) => {
   const toast = useToast();
@@ -94,7 +197,7 @@ const Form2 = (props) => {
     let d = date.toString().slice(0, 4);
 
     // console.log(d);
-    let obj = {
+    var obj = {
       Company: brand,
       Location: locate,
       Year: d,
@@ -109,6 +212,7 @@ const Form2 = (props) => {
       Power_bhp: powerBHP,
     }
     // console.log(obj)
+    formD = obj;
     props.passFormdata(obj)
   }
   return (
@@ -293,22 +397,22 @@ const Form3 = (props) => {
     setData(props.data);
     console.log(sdata);
     try {
-      Axios.post('https://car-preds-price.herokuapp.com/',  sdata )
-      .then(res => {
-        console.log("yahoo==>",res.data.Predcition);
-        // console.log(res.data);
-        setPredicton(res.data.Predcition);
-        setTimeout(() => {
-         setPredicton(res.data.Predcition)
-        }, 1000);
-        console.log("predicton is : ",predicton )
-      })
+      Axios.post('https://car-preds-price.herokuapp.com/', sdata)
+        .then(res => {
+          console.log("=>", res.data.Predcition);
+          // console.log(res.data);
+          setPredicton(res.data.Predcition);
+          setTimeout(() => {
+            setPredicton(res.data.Predcition)
+          }, 1000);
+          console.log("predicton is : ", predicton)
+        })
     }
     catch (error) {
       console.log(error);
     }
 
-   
+
     // console.log(sdata)
   })
 
@@ -316,7 +420,7 @@ const Form3 = (props) => {
     <>
 
       <Heading w="100%" textAlign={'center'} fontWeight="normal">
-        Price Predicted : {predicton == "0" ? <h2>Loading ...</h2> : <h2>{predicton}</h2>}
+        Price Predicted : {predicton == "0" ? <h2>Loading ...</h2> : <h2>Rs {predicton} Lakhs</h2>}
       </Heading>
 
       {/* console.log(props.data) */}
@@ -337,14 +441,12 @@ const Form3 = (props) => {
 
 
 
-
-
-
 const Dashboard = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
   const [formData, setFormData] = useState({});
+  var reff;
   return (
 
     <div>
@@ -407,13 +509,36 @@ const Dashboard = () => {
                 colorScheme="red"
                 variant="solid"
                 onClick={() => {
-                  toast({
-                    title: 'Posted Successfully',
-                    description: "Your Car has been listed successfully",
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                  });
+
+                  console.log("heeyy ", formD)
+
+                  db.collection("users").add(formD)
+                    .then((docRef) => {
+                      console.log("Document written with ID: ", docRef.id);
+                      reff = docRef.id;
+                      toast({
+                        title: 'Posted Successfully',
+                        description: `Your Car has been listed successfully with ref no ${reff}`,
+                        status: 'success',
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                    })
+                    .catch((error) => {
+                      console.error("Error adding document: ", error);
+                      toast({
+                        title: 'Failed',
+                        description: `${error}`,
+                        status: 'failed',
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                    });
+
+
+
+
+
                 }}>
                 POST AD
               </Button>
