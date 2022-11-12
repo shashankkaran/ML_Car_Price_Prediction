@@ -29,36 +29,72 @@ import {
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 const Form1 = () => {
   const [show, setShow] = React.useState(false);
-
+  const toast = useToast();
   const [selectedFile, setSelectedFile] = useState(null);
   const checkImg = async () => {
 
-    // Axios.post("http://localhost:5000/predict", selectedFile)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
+
     const formDat = new FormData();
     formDat.append("selectedFile", selectedFile);
 
-    try {
-      const response = await Axios({
-        method: "post",
-        url: "http://localhost:5000/predict",
-        data: formDat,
 
-      });
-      console.log(response)
-    } catch (error) {
-      console.log(error)
+    try {
+      await Axios.post('http://localhost:5000/predict', formDat)
+        .then(res => {
+          console.log("=>", res);
+          toast({
+            title: 'Succeed',
+            description: `${res.data}`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+        })
     }
+    catch (error) {
+      console.log("this is error", error);
+      toast({
+        title: 'Failed',
+        description: `${error.message}`,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+
+
+
+    // try {
+    //   const response = await Axios({
+    //     method: "post",
+    //     url: "http://localhost:5000/predict",
+    //     data: formDat,
+
+    //   });
+    // toast({
+    //   title: 'Succeed',
+    //   description: `${response}`,
+    //   status: 'success',
+    //   duration: 3000,
+    //   isClosable: true,
+    // });
+    //   console.log(response)
+    // } catch (error) {
+    // toast({
+    //   title: 'Failed',
+    //   description: `${error}`,
+    //   status: 'failed',
+    //   duration: 3000,
+    //   isClosable: true,
+    // });
+    //   console.log(error)
+    // }
 
   }
 
@@ -88,9 +124,9 @@ const Form1 = () => {
         <FormLabel htmlFor="last-name" fontWeight={'bold'}>
           Rear View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" onChange={(e) => setSelectedFile(e.target.files[0])} id="formFileLg" type="file" />
         <Button
-
+          onClick={checkImg}
           isDisabled={false}
           colorScheme="teal"
           variant="solid"
@@ -103,8 +139,9 @@ const Form1 = () => {
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Left View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" id="formFileLg" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" />
         <Button
+          onClick={checkImg}
           isDisabled={false}
           colorScheme="teal"
           variant="solid"
@@ -117,8 +154,9 @@ const Form1 = () => {
         <FormLabel htmlFor="first-name" fontWeight={'bold'}>
           Right View
         </FormLabel>
-        <input className="form-control form-control-lg" id="formFileLg" type="file" />
+        <input className="form-control form-control-lg" id="formFileLg" onChange={(e) => setSelectedFile(e.target.files[0])} type="file" />
         <Button
+          onClick={checkImg}
           isDisabled={false}
           colorScheme="teal"
           variant="solid"
@@ -400,9 +438,6 @@ const Form3 = (props) => {
     </>
   );
 };
-
-
-
 
 
 
