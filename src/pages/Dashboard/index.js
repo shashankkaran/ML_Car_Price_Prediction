@@ -39,12 +39,24 @@ const Form1 = () => {
   const checkImg = async () => {
 
 
-    const formDat = new FormData();
-    formDat.append("selectedFile", selectedFile);
+    const formData = new FormData();
 
+    formData.append("file", selectedFile);
+
+    // console.log("====>>>>>",selectedFile)
+    // const res =await fetch("http://3.82.235.56/predict",{
+    //   method:"POST",
+    //   body:formData
+    // })
+    // const data = await res.json();
+    // console.log(data);
+
+
+    // .post('http://3.82.235.56/predict', formData)
 
     try {
-      await Axios.post('http://localhost:5000/predict', formDat)
+      await Axios
+      .post('http://3.82.235.56/predict',formData)
         .then(res => {
           console.log("=>", res);
           toast({
@@ -57,7 +69,7 @@ const Form1 = () => {
         })
     }
     catch (error) {
-      console.log("this is error", error);
+      console.log("this is error", error,selectedFile);
       toast({
         title: 'Failed',
         description: `${error.message}`,
@@ -488,7 +500,7 @@ const Dashboard = () => {
               <Button
                 w="7rem"
                 // disable next button until form is filled
-                isDisabled={step === 3}
+                isDisabled={step === 3 }
                 onClick={() => {
                   setStep(step + 1);
                   if (step === 3) {
